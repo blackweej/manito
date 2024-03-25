@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Mission</title>
+    <script>
+        const backendUrl = 'http://localhost:5000/get-mission'; // Your Flask app's URL
+        
+        async function getMission() {
+            let number = document.getElementById("numberInput").value;
+            const response = await fetch(backendUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ number: parseInt(number) }),
+            });
+
+            const data = await response.json();
+            document.getElementById("missionOutput").innerText = `Number: ${data.selected_number}, Mission: ${data.selected_mission}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Get Mission</h1>
+    <input type="number" id="numberInput" min="1" max="29" value="1">
+    <button onclick="getMission()">Get Mission</button>
+    <p id="missionOutput"></p>
+</body>
+</html>
